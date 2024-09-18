@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Linux-g++"
+	BuildStamp="20240918-0516-Experimental"
+	Name="RHIT-R912GK06"
+	Generator="ctest-3.16.3"
+	CompilerName="/usr/bin/g++"
+	CompilerVersion="9.4.0"
+	OSName="Linux"
+	Hostname="RHIT-R912GK06"
+	OSRelease="5.10.102.1-microsoft-standard-WSL2"
+	OSVersion="#1 SMP Wed Mar 2 00:30:59 UTC 2022"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="165"
+	ProcessorCacheSize="12288"
+	NumberOfLogicalCPU="12"
+	NumberOfPhysicalCPU="6"
+	TotalVirtualMemory="4096"
+	TotalPhysicalMemory="12578"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="2592.01"
+	>
+	<Testing>
+		<StartDateTime>Sep 18 02:12 EDT</StartDateTime>
+		<StartTestTime>1726639934</StartTestTime>
+		<TestList/>
+		<EndDateTime>Sep 18 02:12 EDT</EndDateTime>
+		<EndTestTime>1726639934</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

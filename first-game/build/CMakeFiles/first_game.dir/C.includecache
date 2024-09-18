@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../raylib/src/raylib.h
+stdarg.h
+-
+stdbool.h
+-
+
+/home/martina9/senior-project/Senior-Project-Individual/first-game/src/main.c
+raylib.h
+/home/martina9/senior-project/Senior-Project-Individual/first-game/src/raylib.h
+stdio.h
+/home/martina9/senior-project/Senior-Project-Individual/first-game/src/stdio.h
+test.h
+/home/martina9/senior-project/Senior-Project-Individual/first-game/src/test.h
+emscripten/emscripten.h
+-
+
+/home/martina9/senior-project/Senior-Project-Individual/first-game/src/test.h
+

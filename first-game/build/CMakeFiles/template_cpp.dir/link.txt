@@ -1,0 +1,1 @@
+/usr/bin/gcc -g  -rdynamic CMakeFiles/template_cpp.dir/main.c.o  -o template_cpp  raylib/raylib/libraylib.a -lm -lpthread -lOpenGL -lGLX -lGLU -lpthread -lrt -lm -ldl 
