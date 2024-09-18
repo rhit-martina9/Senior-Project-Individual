@@ -21,6 +21,7 @@ static const float rand4chance = 0.1;
 static int framesCounter = 0;
 static bool gameOver = false;
 static bool gameWon = false;
+static int gameEndFrames = 0;
 static Vector2 offset = { 0 };
 
 int grid[16];
@@ -96,6 +97,7 @@ void InitGame(void)
     framesCounter = 0;
     gameOver = false;
     gameWon = false;
+    gameEndFrames = 0;
     count = 0;
     score = 0;
     for (int i = 0; i < 16; i++) { grid[i] = 0; }
@@ -123,7 +125,18 @@ void InitGame(void)
 // Update game (one frame)
 void UpdateGame(void)
 {
-    if (!gameOver)
+    if (gameOver) 
+    {
+        gameEndFrames++;
+        if(gameEndFrames == 50) {
+            gameOver = true;
+        }
+        if (IsKeyPressed(KEY_ENTER))
+        {
+            InitGame();
+            gameOver = false;
+        }
+    } else
     {
         // Player control
         if (IsKeyPressed(KEY_RIGHT))
@@ -145,14 +158,6 @@ void UpdateGame(void)
 
         framesCounter++;
     }
-    else
-    {
-        if (IsKeyPressed(KEY_ENTER))
-        {
-            InitGame();
-            gameOver = false;
-        }
-    }
 }
 
 // Draw game (one frame)
@@ -162,23 +167,24 @@ void DrawGame(void)
 
         ClearBackground(RAYWHITE);
 
-        if (!gameOver)
-        {// Draw grid lines
-            for (int i = 0; i < 5; i++) DrawLineV((Vector2){offset.x + squareSize*i, offset.y}, (Vector2){squareSize*i + offset.x, screenHeight - offset.y}, LIGHTGRAY);
-            for (int i = 0; i < 5; i++) DrawLineV((Vector2){offset.x, squareSize*i + offset.y}, (Vector2){screenWidth - offset.x, squareSize*i + offset.y}, LIGHTGRAY);
-
+        if (!gameOver || gameEndFrames < 50)
+        {
             // draw grid
             for (int i = 0; i < 16; i++) {
                 DrawRectangleRec(grid_rects[i],colors[grid[i]]);
-                char num[5];
+                char num[5] = "\0\0\0\0\0";
                 sprintf(num,"%d",1<<grid[i]);
-                DrawText(num, grid_rects[i].x + squareSize/2 - MeasureText(num, 20), grid_rects[i].y + squareSize/2 - 15, 30, GRAY);
+                DrawText(num, grid_rects[i].x + squareSize/2 - MeasureText(num, 30)/2, grid_rects[i].y + squareSize/2 - 15, 30, GRAY);
             }
+
+            // Draw grid lines
+            for (int i = 0; i < 5; i++) DrawLineV((Vector2){offset.x + squareSize*i, offset.y}, (Vector2){squareSize*i + offset.x, screenHeight - offset.y}, LIGHTGRAY);
+            for (int i = 0; i < 5; i++) DrawLineV((Vector2){offset.x, squareSize*i + offset.y}, (Vector2){screenWidth - offset.x, squareSize*i + offset.y}, LIGHTGRAY);
         }
         else {
-            if(gameWon) DrawText("CONGRATULATIONS, YOU WON!!!", GetScreenWidth()/2 - MeasureText("CONGRATULATIONS, YOU WON!!!", 20)/2, GetScreenHeight()/2 - 20, 20, GRAY);
-            else DrawText("YOU LOST. BETTER LUCK NEXT TIME!", GetScreenWidth()/2 - MeasureText("YOU LOST. BETTER LUCK NEXT TIME!", 20)/2, GetScreenHeight()/2 - 20, 20, GRAY);
-            DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth()/2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
+            if(gameWon) DrawText("CONGRATULATIONS, YOU WON!!!", GetScreenWidth()/2 - MeasureText("CONGRATULATIONS, YOU WON!!!", 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
+            else DrawText("YOU LOST. BETTER LUCK NEXT TIME!", GetScreenWidth()/2 - MeasureText("YOU LOST. BETTER LUCK NEXT TIME!", 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
+            DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth()/2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20)/2, GetScreenHeight()/2 - 20, 20, GRAY);
         }
     
     
@@ -202,16 +208,17 @@ void UpdateDrawFrame(void)
 }
 
 void generate_number(void) {
-    int x = GetRandomValue(0,16);
-    while(grid[x] != 0) {
-        x = GetRandomValue(0,16);
+    int* positions = LoadRandomSequence(16,0,15);
+    for(int i = 0; i<16; i++) {
+        if(grid[positions[i]] > 0) {continue;}
+        if (GetRandomValue(0,100) <= rand4chance*100) {
+            grid[positions[i]] = 2;
+        } else {
+            grid[positions[i]] = 1;
+        }
+        count++;
+        break;
     }
-    if (GetRandomValue(0,100) <= rand4chance*100) {
-        grid[x] = 2;
-    } else {
-        grid[x] = 1;
-    }
-    count ++;
 }
 
 void move( int (*f)(int, int)) {
@@ -223,7 +230,10 @@ void move( int (*f)(int, int)) {
                 if(grid[(*f)(row,col)] != grid[(*f)(row,col2)]) { break; }
                 grid[(*f)(row,col)]++;
                 score += 1<<grid[(*f)(row,col)];
-                if(grid[(*f)(row,col)] == WIN_EXP) {gameOver = true;}
+                if(grid[(*f)(row,col)] == WIN_EXP) {
+                    gameOver = true;
+                    gameWon = true;
+                }
                 grid[(*f)(row,col2)] = 0;
                 count--;
                 break;
