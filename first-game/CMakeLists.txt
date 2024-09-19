@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(first_game VERSION 0.1.0)
+project(game_2048 VERSION 0.1.0)
 
 # finding and including SDL
 #find_package(SDL2 REQUIRED)
@@ -20,7 +20,7 @@ file(GLOB_RECURSE HEADERS "src/**/*.h")
 # file(GLOB_RECURSE HEADERS "src/**/*.hpp")
 
 
-add_executable(first_game src/main.c ${SOURCES} ${HEADERS})
+add_executable(game_2048 src/main.c ${SOURCES} ${HEADERS})
 
 
 

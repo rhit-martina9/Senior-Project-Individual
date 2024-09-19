@@ -554,17 +554,17 @@ ContinuousSubmit/fast:
 .PHONY : ContinuousSubmit/fast
 
 #=============================================================================
-# Target rules for targets named first_game
+# Target rules for targets named game_2048
 
 # Build rule for target.
-first_game: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 first_game
-.PHONY : first_game
+game_2048: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 game_2048
+.PHONY : game_2048
 
 # fast build rule for target.
-first_game/fast:
-	$(MAKE) -f CMakeFiles/first_game.dir/build.make CMakeFiles/first_game.dir/build
-.PHONY : first_game/fast
+game_2048/fast:
+	$(MAKE) -f CMakeFiles/game_2048.dir/build.make CMakeFiles/game_2048.dir/build
+.PHONY : game_2048/fast
 
 #=============================================================================
 # Target rules for targets named uninstall
@@ -624,7 +624,7 @@ src/main.o: src/main.c.o
 
 # target to build an object file
 src/main.c.o:
-	$(MAKE) -f CMakeFiles/first_game.dir/build.make CMakeFiles/first_game.dir/src/main.c.o
+	$(MAKE) -f CMakeFiles/game_2048.dir/build.make CMakeFiles/game_2048.dir/src/main.c.o
 .PHONY : src/main.c.o
 
 src/main.i: src/main.c.i
@@ -633,7 +633,7 @@ src/main.i: src/main.c.i
 
 # target to preprocess a source file
 src/main.c.i:
-	$(MAKE) -f CMakeFiles/first_game.dir/build.make CMakeFiles/first_game.dir/src/main.c.i
+	$(MAKE) -f CMakeFiles/game_2048.dir/build.make CMakeFiles/game_2048.dir/src/main.c.i
 .PHONY : src/main.c.i
 
 src/main.s: src/main.c.s
@@ -642,7 +642,7 @@ src/main.s: src/main.c.s
 
 # target to generate assembly for a file
 src/main.c.s:
-	$(MAKE) -f CMakeFiles/first_game.dir/build.make CMakeFiles/first_game.dir/src/main.c.s
+	$(MAKE) -f CMakeFiles/game_2048.dir/build.make CMakeFiles/game_2048.dir/src/main.c.s
 .PHONY : src/main.c.s
 
 # Help Target
@@ -688,7 +688,7 @@ help:
 	@echo "... ContinuousMemCheck"
 	@echo "... ContinuousTest"
 	@echo "... ContinuousSubmit"
-	@echo "... first_game"
+	@echo "... game_2048"
 	@echo "... uninstall"
 	@echo "... raylib"
 	@echo "... update_mappings"

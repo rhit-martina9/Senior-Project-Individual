@@ -1,0 +1,1 @@
+/usr/bin/gcc -g  -rdynamic CMakeFiles/game_2048.dir/src/main.c.o  -o game_2048  raylib/raylib/libraylib.a -lm -lpthread -lOpenGL -lGLX -lGLU -lpthread -lrt -lm -ldl 

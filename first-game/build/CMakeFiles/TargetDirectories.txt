@@ -35,7 +35,7 @@
 /home/martina9/senior-project/Senior-Project-Individual/first-game/build/CMakeFiles/ContinuousMemCheck.dir
 /home/martina9/senior-project/Senior-Project-Individual/first-game/build/CMakeFiles/ContinuousTest.dir
 /home/martina9/senior-project/Senior-Project-Individual/first-game/build/CMakeFiles/ContinuousSubmit.dir
-/home/martina9/senior-project/Senior-Project-Individual/first-game/build/CMakeFiles/first_game.dir
+/home/martina9/senior-project/Senior-Project-Individual/first-game/build/CMakeFiles/game_2048.dir
 /home/martina9/senior-project/Senior-Project-Individual/first-game/build/raylib/CMakeFiles/install/strip.dir
 /home/martina9/senior-project/Senior-Project-Individual/first-game/build/raylib/CMakeFiles/install/local.dir
 /home/martina9/senior-project/Senior-Project-Individual/first-game/build/raylib/CMakeFiles/edit_cache.dir

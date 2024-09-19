@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /home/martina9/senior-project/Senior-Project-Individual/first
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/first_game.dir/all
+all: CMakeFiles/game_2048.dir/all
 all: raylib/all
 
 .PHONY : all
@@ -92,7 +92,7 @@ clean: CMakeFiles/ContinuousStart.dir/clean
 clean: CMakeFiles/ContinuousMemCheck.dir/clean
 clean: CMakeFiles/ContinuousTest.dir/clean
 clean: CMakeFiles/ContinuousSubmit.dir/clean
-clean: CMakeFiles/first_game.dir/clean
+clean: CMakeFiles/game_2048.dir/clean
 clean: raylib/clean
 
 .PHONY : clean
@@ -930,32 +930,32 @@ CMakeFiles/ContinuousSubmit.dir/clean:
 .PHONY : CMakeFiles/ContinuousSubmit.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/first_game.dir
+# Target rules for target CMakeFiles/game_2048.dir
 
 # All Build rule for target.
-CMakeFiles/first_game.dir/all: raylib/raylib/CMakeFiles/raylib.dir/all
-CMakeFiles/first_game.dir/all: raylib/raylib/external/glfw/src/CMakeFiles/glfw.dir/all
-	$(MAKE) -f CMakeFiles/first_game.dir/build.make CMakeFiles/first_game.dir/depend
-	$(MAKE) -f CMakeFiles/first_game.dir/build.make CMakeFiles/first_game.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/martina9/senior-project/Senior-Project-Individual/first-game/build/CMakeFiles --progress-num=1,2 "Built target first_game"
-.PHONY : CMakeFiles/first_game.dir/all
+CMakeFiles/game_2048.dir/all: raylib/raylib/CMakeFiles/raylib.dir/all
+CMakeFiles/game_2048.dir/all: raylib/raylib/external/glfw/src/CMakeFiles/glfw.dir/all
+	$(MAKE) -f CMakeFiles/game_2048.dir/build.make CMakeFiles/game_2048.dir/depend
+	$(MAKE) -f CMakeFiles/game_2048.dir/build.make CMakeFiles/game_2048.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/martina9/senior-project/Senior-Project-Individual/first-game/build/CMakeFiles --progress-num=1,2 "Built target game_2048"
+.PHONY : CMakeFiles/game_2048.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/first_game.dir/rule: cmake_check_build_system
+CMakeFiles/game_2048.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/martina9/senior-project/Senior-Project-Individual/first-game/build/CMakeFiles 54
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/first_game.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/game_2048.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/martina9/senior-project/Senior-Project-Individual/first-game/build/CMakeFiles 0
-.PHONY : CMakeFiles/first_game.dir/rule
+.PHONY : CMakeFiles/game_2048.dir/rule
 
 # Convenience name for target.
-first_game: CMakeFiles/first_game.dir/rule
+game_2048: CMakeFiles/game_2048.dir/rule
 
-.PHONY : first_game
+.PHONY : game_2048
 
 # clean rule for target.
-CMakeFiles/first_game.dir/clean:
-	$(MAKE) -f CMakeFiles/first_game.dir/build.make CMakeFiles/first_game.dir/clean
-.PHONY : CMakeFiles/first_game.dir/clean
+CMakeFiles/game_2048.dir/clean:
+	$(MAKE) -f CMakeFiles/game_2048.dir/build.make CMakeFiles/game_2048.dir/clean
+.PHONY : CMakeFiles/game_2048.dir/clean
 
 #=============================================================================
 # Target rules for target raylib/CMakeFiles/uninstall.dir

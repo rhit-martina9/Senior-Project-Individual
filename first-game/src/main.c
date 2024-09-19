@@ -103,12 +103,8 @@ void InitGame(void)
     count = 0;
     score = 0;
     for (int i = 0; i < 16; i++) { grid[i] = 0; }
-    // generate_number();
-    // generate_number();
-    grid[0] = 10;
-    grid[1] = 10;
-    grid[2] = 10;
-    grid[3] = 10;
+    generate_number();
+    generate_number();
 
     if (screenHeight <= screenWidth) {
         squareSize = screenHeight*0.2;

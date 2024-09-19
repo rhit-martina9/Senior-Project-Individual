@@ -126,7 +126,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/ContinuousMemCheck.dir/DependInfo.cmake"
   "CMakeFiles/ContinuousTest.dir/DependInfo.cmake"
   "CMakeFiles/ContinuousSubmit.dir/DependInfo.cmake"
-  "CMakeFiles/first_game.dir/DependInfo.cmake"
+  "CMakeFiles/game_2048.dir/DependInfo.cmake"
   "raylib/CMakeFiles/uninstall.dir/DependInfo.cmake"
   "raylib/raylib/CMakeFiles/raylib.dir/DependInfo.cmake"
   "raylib/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/DependInfo.cmake"
