@@ -3,5 +3,4 @@
 
 CMakeFiles/first_game.dir/src/main.c.o: ../raylib/src/raylib.h
 CMakeFiles/first_game.dir/src/main.c.o: ../src/main.c
-CMakeFiles/first_game.dir/src/main.c.o: ../src/test.h
 

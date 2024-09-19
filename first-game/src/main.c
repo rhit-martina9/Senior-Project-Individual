@@ -9,6 +9,10 @@
 // Some Defines
 //----------------------------------------------------------------------------------
 #define WIN_EXP         11
+#define GAME_PLAY       0
+#define GAME_CONT       1
+#define GAME_WON        2
+#define GAME_LOST       3
 
 //------------------------------------------------------------------------------------
 // Global Variables Declaration
@@ -18,8 +22,7 @@ static const int screenHeight = 450;
 static const float rand4chance = 0.1;
 
 static int framesCounter = 0;
-static bool gameOver = false;
-static bool gameWon = false;
+static int gameState = GAME_PLAY;
 static int gameEndFrames = 0;
 static Vector2 offset = { 0 };
 
@@ -28,13 +31,14 @@ static Rectangle grid_rects[16];
 static int count;
 static int score;
 static float squareSize;
-static Color colors[12] = {
+static Color colors[15] = {
     (Color) {204, 192, 179, 255}, (Color) {238, 228, 218, 255},
     (Color) {237, 224, 200, 255}, (Color) {242, 177, 121, 255},
     (Color) {245, 149,  99, 255}, (Color) {246,  124, 95, 255},
     (Color) {246,  94,  59, 255}, (Color) {237, 207, 114, 255},
     (Color) {237, 204,  97, 255}, (Color) {237, 200,  80, 255}, 
-    (Color) {237, 197,  63, 255}, (Color) {204, 194,  46, 255}
+    (Color) {237, 197,  63, 255}, (Color) {204, 194,  46, 255},
+    GREEN,  SKYBLUE, PURPLE
 };
 
 //------------------------------------------------------------------------------------
@@ -94,14 +98,17 @@ int main(void)
 void InitGame(void)
 {
     framesCounter = 0;
-    gameOver = false;
-    gameWon = false;
+    gameState = GAME_PLAY;
     gameEndFrames = 0;
     count = 0;
     score = 0;
     for (int i = 0; i < 16; i++) { grid[i] = 0; }
-    generate_number();
-    generate_number();
+    // generate_number();
+    // generate_number();
+    grid[0] = 10;
+    grid[1] = 10;
+    grid[2] = 10;
+    grid[3] = 10;
 
     if (screenHeight <= screenWidth) {
         squareSize = screenHeight*0.2;
@@ -124,16 +131,18 @@ void InitGame(void)
 // Update game (one frame)
 void UpdateGame(void)
 {
-    if (gameOver) 
+    if (gameState > 1) 
     {
         gameEndFrames++;
-        if(gameEndFrames == 50) {
-            gameOver = true;
-        }
         if (IsKeyPressed(KEY_ENTER))
         {
             InitGame();
-            gameOver = false;
+            gameState = GAME_PLAY;
+        } 
+        if (IsKeyPressed(KEY_SPACE))
+        {
+            gameState = GAME_CONT;
+            gameEndFrames = 0;
         }
     } else
     {
@@ -166,7 +175,7 @@ void DrawGame(void)
 
         ClearBackground(RAYWHITE);
 
-        if (!gameOver || gameEndFrames < 50)
+        if ((gameState < 2) || ((gameState > 1) && (gameEndFrames < 50)))
         {
             // draw grid
             for (int i = 0; i < 16; i++) {
@@ -181,11 +190,15 @@ void DrawGame(void)
             for (int i = 0; i < 5; i++) DrawLineV((Vector2){offset.x, squareSize*i + offset.y}, (Vector2){screenWidth - offset.x, squareSize*i + offset.y}, LIGHTGRAY);
         }
         else {
-            if(gameWon) DrawText("CONGRATULATIONS, YOU WON!!!", GetScreenWidth()/2 - MeasureText("CONGRATULATIONS, YOU WON!!!", 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
-            else DrawText("YOU LOST. BETTER LUCK NEXT TIME!", GetScreenWidth()/2 - MeasureText("YOU LOST. BETTER LUCK NEXT TIME!", 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
+            if(gameState == GAME_WON) {
+                DrawText("CONGRATULATIONS, YOU WON!!!", GetScreenWidth()/2 - MeasureText("CONGRATULATIONS, YOU WON!!!", 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
+                DrawText("PRESS [SPACE] TO CONTINUE", GetScreenWidth()/2 - MeasureText("PRESS [SPACE] TO CONTINUE", 20)/2, GetScreenHeight()/2 + 10, 20, GRAY);
+            }
+            else {
+                DrawText("YOU LOST. BETTER LUCK NEXT TIME!", GetScreenWidth()/2 - MeasureText("YOU LOST. BETTER LUCK NEXT TIME!", 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
+            }
             DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth()/2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20)/2, GetScreenHeight()/2 - 20, 20, GRAY);
         }
-    
     
     char scoreStr[14] = "Score: ";
     sprintf(scoreStr+7,"%d",score);
@@ -220,7 +233,8 @@ void generate_number(void) {
     }
 }
 
-void move( int (*f)(int, int)) {
+void move(int (*f)(int, int)) {
+    int moves = 0;
     for(int row = 0; row < 4; row++) {
         for(int col = 0; col < 4; col++) {
             if(grid[(*f)(row,col)] == 0) { continue; }
@@ -229,12 +243,12 @@ void move( int (*f)(int, int)) {
                 if(grid[(*f)(row,col)] != grid[(*f)(row,col2)]) { break; }
                 grid[(*f)(row,col)]++;
                 score += 1<<grid[(*f)(row,col)];
-                if(grid[(*f)(row,col)] == WIN_EXP) {
-                    gameOver = true;
-                    gameWon = true;
+                if(grid[(*f)(row,col)] == WIN_EXP && !gameState) {
+                    gameState = GAME_WON;
                 }
                 grid[(*f)(row,col2)] = 0;
                 count--;
+                moves++;
                 break;
             }
         }
@@ -244,17 +258,18 @@ void move( int (*f)(int, int)) {
                 if(grid[(*f)(row,col2)] > 0) {
                     grid[(*f)(row,col)] = grid[(*f)(row,col2)];
                     grid[(*f)(row,col2)] = 0;
+                    moves++;
                     break;
                 }
             }
         }
     }
-    if(count < 16) {
+    if(count < 16 && moves) {
         generate_number();
     }
     if (count == 16) {
         if(check_for_loss()) {
-            gameOver = true;
+            gameState = GAME_LOST;
         }
     }
 }
